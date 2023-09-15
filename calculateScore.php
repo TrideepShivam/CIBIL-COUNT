@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=mysqli_connect("localhost","root","@nikita","project");
+$conn=mysqli_connect("localhost","root","","project");
 
 if(isset($_POST['uname'])){
     $uname=$_POST['uname'];

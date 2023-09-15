@@ -5,7 +5,7 @@
     <body>
 
 <?php
-$connect=mysqli_connect("localhost","root","@nikita","project");
+$connect=mysqli_connect("localhost","root","","project");
 
 if($connect)
 {

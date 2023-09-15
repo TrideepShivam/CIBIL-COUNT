@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$conn=mysqli_connect("localhost","root","@nikita","project");
+$conn=mysqli_connect("localhost","root","","project");
 $msg = "Error";
 if (isset($_POST['email-Id']) && isset($_POST['password'])) 
 {

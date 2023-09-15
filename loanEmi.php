@@ -1,7 +1,7 @@
 <?php
 if(isset($_GET['uname'])){
     $uname=$_GET['uname'];
-    $conn=mysqli_connect("localhost","root","@nikita","project");
+    $conn=mysqli_connect("localhost","root","","project");
     $sql = "SELECT * FROM register WHERE userId='".$uname."'";
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
