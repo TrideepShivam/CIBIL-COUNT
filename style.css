@@ -39,7 +39,22 @@
     background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(picture/banner.jpg);
     background-position: center;
     background-size: cover;
-    position: absolute;
+    display:flex;
+    justify-content: center;
+}
+#details{
+    height:100%;
+    width:45%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 30px;
+    color:white;
+    padding-left:5%;
+}
+#details p:first-child{
+    color:rgb(111, 2, 111);
+    font-size: 75px;
 }
 .formBox{
     height:480px;
