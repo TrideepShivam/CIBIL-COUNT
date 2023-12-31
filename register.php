@@ -5,9 +5,9 @@
     <body>
 
 <?php
-$connect=mysqli_connect("localhost","root","","project");
-
-if($connect)
+session_start();
+require_once('database.php');
+if($conn)
 {
     $userid=$_POST['userId'];
     $email=$_POST['email-Id'];
@@ -15,16 +15,17 @@ if($connect)
 
 }
 $cmd="insert into register values(".$userid.",'".$email."','".$pass."',true,300);";
-$ins=mysqli_query($connect,$cmd);
+$ins=mysqli_query($conn,$cmd);
 if ($ins) {
     //echo "Successfully Registered.";
-    $loc = "location:dashboard.php?uname=".$userid;
+    $_SESSION['uid']=$userid;
+    $loc = "location:dashboard.php";
     header($loc);
 }
 else
 {
-    echo "<div class='container'><h1>OOPS...Something went wrong.</h1>";
-    echo "<a href='login.html'>LogIn</a></div>";
+    echo "<div class='container'><h1>OOPS... We already have this ID.</h1>";
+    echo "<a href='index.html'>LogIn</a></div>";
 }
 
 ?>

@@ -1,9 +1,8 @@
 <?php
 session_start();
-$conn=mysqli_connect("localhost","root","","project");
-
-if(isset($_POST['uname'])){
-    $uname=$_POST['uname'];
+require_once('database.php');
+if(isset($_SESSION['uid'])){
+    $uname = $_SESSION['uid'];
     $sql = "SELECT * FROM register WHERE userId='".$uname."'";
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
@@ -57,7 +56,7 @@ if(isset($_POST['uname'])){
 
         $sql = "update register set creditScore=".$credit." where userId=".$uname.";";
         mysqli_query($conn,$sql);
-        $loc = "location:cibilCount.php?uname=".$uname;
+        $loc = "location:cibilCount.php";
         header($loc);
     }else{
         echo "invalid user";

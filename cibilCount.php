@@ -1,7 +1,8 @@
 <?php
-if(isset($_GET['uname'])){
-    $uname=$_GET['uname'];
-    $conn=mysqli_connect("localhost","root","","project");
+session_start();
+require_once("database.php");
+if(isset($_SESSION['uid'])){
+    $uname=$_SESSION['uid'];
     $sql = "SELECT * FROM register WHERE userId='".$uname."'";
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
@@ -49,7 +50,7 @@ if(isset($_GET['uname'])){
                 <button id="activeTab" class="navbtn" name="cibilCount" onclick="getNewPage(this)">CIBIL count</button>
                 <button class="navbtn" name="about" onclick="getNewPage(this)">About</button>
                 <button class="navbtn" name="writeUs" onclick="getNewPage(this)">Write To Us</button>
-                <button class="navbtn" onclick="window.location.href='login.html'">Log Out</button>
+                <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">
                 <div id="cibilScore">
@@ -59,13 +60,7 @@ if(isset($_GET['uname'])){
                 </div>
             </div>
         </div>
-        <script>
-            function getNewPage(t){
-                let btn=t.name;
-                let target=btn+".php?uname="+<?php echo $uname; ?>;
-                window.location.href=target;
-            }
-        </script>
+        <script src="script.js"></script>
     </body>
 </html>
 <?php

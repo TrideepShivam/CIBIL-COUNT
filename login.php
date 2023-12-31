@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$conn=mysqli_connect("localhost","root","","project");
+require_once('database.php');//used to implement database file otherwise fatal error.
 $msg = "Error";
 if (isset($_POST['email-Id']) && isset($_POST['password'])) 
 {
@@ -10,8 +10,8 @@ if (isset($_POST['email-Id']) && isset($_POST['password']))
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
     {
-        $loc = "location:dashboard.php?uname=".$uname;
-        header($loc);
+        $_SESSION['uid']=$uname;
+        header('location:dashboard.php');
     }else{
     //    header("location:login.html");
         $msg="Invalid Id or Password.";
@@ -39,7 +39,7 @@ if (isset($_POST['email-Id']) && isset($_POST['password']))
         <div class="container">
             <div class="formbox">
                 <h2><?php echo $msg; ?></h2>
-                <a class="submitBtn" href="login.html">Try Again</a>
+                <a class="submitBtn" href="index.html">Try Again</a>
             </div>
         </div>
     </body>

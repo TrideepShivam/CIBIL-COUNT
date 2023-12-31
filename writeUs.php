@@ -1,12 +1,3 @@
-<?php
-if(isset($_GET['uname'])){
-    $uname=$_GET['uname'];
-    $conn=mysqli_connect("localhost","root","","project");
-    $sql = "SELECT * FROM register WHERE userId='".$uname."'";
-    $result = mysqli_query($conn, $sql);
-    if ($result != false&&mysqli_num_rows($result) == 1) 
-    {
-?>
 <html>
     <head>
     <link rel="stylesheet" href="dashboard.css">
@@ -31,45 +22,41 @@ if(isset($_GET['uname'])){
     </head>
     <body>
         <div class="firstDiv">
+            <?php
+            session_start();
+            require_once('database.php');
+            if(isset($_SESSION['uid'])){
+            ?>
             <div id="sidenav" class="dashboardContainer">
                 <div id="profile">
                     <div id="profileImg"></div>
-                    <h1 id="userId"><?php echo $uname;?></h1>
+                    <h1 id="userId"><?php echo $_SESSION['uid'];?></h1>
                 </div>
                 <button name="dashboard" class="navbtn" onclick="getNewPage(this)">Dashboard</button>
                 <button class="navbtn" name="loanEmi" onclick="getNewPage(this)">Loan EMI</button>
                 <button class="navbtn" name="cibilCount" onclick="getNewPage(this)">CIBIL count</button>
                 <button class="navbtn" name="about" onclick="getNewPage(this)">About</button>
                 <button id="activeTab" class="navbtn" name="writeUs" onclick="getNewPage(this)">Write To Us</button>
-                <button class="navbtn" onclick="window.location.href='login.html'">Log Out</button>
+                <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">
             <form method="post">  
                 <h1>Write To Us</h1>
-                <input type="text" value="<?php echo $uname;?>" name="uname" required>
+                <input type="text" value="<?php echo $_SESSION['uid'];?>" name="uname" required>
                 <input type="email" placeholder="Email" required>
                 <input type="text" placeholder="Comment" required>
                 <button id="submitDashboard">SUBMIT</button>        
             </form>
             </div>
-        </div>
-        <script>
-            function getNewPage(t){
-                let btn=t.name;
-                let target=btn+".php?uname="+<?php echo $uname; ?>;
-                window.location.href=target;
+            <?php
+            }else{
+                $uname="page not found: Please contact to the service provider;";
+                echo $uname;
             }
-        </script>
+            ?>
+        </div>
+        <script src="script.js"></script>
     </body>
 </html>
-<?php
-    }else{
-       echo "Invalid Id";
-    }
-}else{
-    $uname="page not found: Please contact to the service provider;";
-    echo $uname;
-}
-?>
 
  
