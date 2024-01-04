@@ -24,7 +24,7 @@
         <div class="firstDiv">
             <?php
             session_start();
-            require_once('database.php');
+            require_once('./operations/database.php');
             if(isset($_SESSION['uid'])){
             ?>
             <div id="sidenav" class="dashboardContainer">
