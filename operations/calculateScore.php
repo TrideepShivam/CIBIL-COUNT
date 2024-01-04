@@ -56,7 +56,7 @@ if(isset($_SESSION['uid'])){
 
         $sql = "update register set creditScore=".$credit." where userId=".$uname.";";
         mysqli_query($conn,$sql);
-        $loc = "location:cibilCount.php";
+        $loc = "location:../cibilCount.php";
         header($loc);
     }else{
         echo "invalid user";

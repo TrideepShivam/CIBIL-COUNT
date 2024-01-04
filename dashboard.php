@@ -24,7 +24,7 @@
                 <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">
-            <form action="calculateScore.php" method="post">  
+            <form action="./operations/calculateScore.php" method="post">  
 					<fieldset>
 						<legend>Personal information:</legend>
 						<label for="NAME">Id:</label>

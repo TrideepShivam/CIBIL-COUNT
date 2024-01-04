@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("database.php");
+require_once("./operations/database.php");
 if(isset($_SESSION['uid'])){
     $uname=$_SESSION['uid'];
     $sql = "SELECT * FROM register WHERE userId='".$uname."'";

@@ -19,13 +19,13 @@ $ins=mysqli_query($conn,$cmd);
 if ($ins) {
     //echo "Successfully Registered.";
     $_SESSION['uid']=$userid;
-    $loc = "location:dashboard.php";
+    $loc = "location:../dashboard.php";
     header($loc);
 }
 else
 {
     echo "<div class='container'><h1>OOPS... We already have this ID.</h1>";
-    echo "<a href='index.html'>LogIn</a></div>";
+    echo "<a href='../index.html'>LogIn</a></div>";
 }
 
 ?>
