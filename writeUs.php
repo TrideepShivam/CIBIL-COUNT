@@ -40,11 +40,27 @@
                 <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">
-            <form method="post">  
+            <form action=<?php echo $_SERVER['PHP_SELF']?> method="post"> 
+                <?php
+                    if(isset($_POST['email'])&&isset($_POST['comment'])){
+                        $email=$_POST['email'];
+                        $comment=$_POST['comment'];
+                        $cmd="insert into comments values(".$_SESSION['uid'].",'".$email."','".$comment."');";
+                        $ins=mysqli_query($conn,$cmd);
+                        if ($ins) {
+                            $msg = "";
+                            echo "<p id='success' class='msg'>Your Comment Recieved Successfully.</p>";
+                        }
+                        else
+                        {
+                            echo "<p id='error' class='msg'>Some Error Occured. Try Again.</p>";
+                        }
+                    }
+                ?>
                 <h1>Write To Us</h1>
                 <input type="text" value="<?php echo $_SESSION['uid'];?>" name="uname" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Comment" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="comment" placeholder="Comment" required>
                 <button id="submitDashboard">SUBMIT</button>        
             </form>
             </div>
