@@ -13,11 +13,7 @@
                 gap:30px;
                 text-align:center;
             }
-            #mainContent form input{
-                width:100%;
-                font-size:30px;
-            }
-            #mainContent form h1{color:green;}
+            
         </style>
     </head>
     <body>

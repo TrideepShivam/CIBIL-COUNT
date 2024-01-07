@@ -9,7 +9,7 @@ if(isset($_SESSION['uid'])){
     {
         $row = $result->fetch_assoc();
         $cibilScore=$row['creditScore'];
-        $maxloan=$cibilScore*5500;
+        $maxloan=$cibilScore*500;
 ?>
 <html>
     <head>
@@ -39,7 +39,34 @@ if(isset($_SESSION['uid'])){
                 <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">  
-                <form> 
+                <form action=<?php echo $_SERVER['PHP_SELF']?> method="post">
+                <?php
+                    
+                ?>
+                    <table>
+                        <tr>
+                            <td>Loan amount:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Period(year):</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>On:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Pay Day</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Pay Amount</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                            
+                    <h1>Loan Approval</h1>
                     <div>
                         <label for="NAME">MAX loan: According to Credit Score</label>
                         <input type="text" value="<?php echo $maxloan;?>" class="data" disabled>

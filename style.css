@@ -256,5 +256,11 @@ span{
     
 }
 
+#mainContent form input{
+    width:100%;
+    font-size:30px;
+}
+#mainContent form h1{color:green;}
+
 
 
