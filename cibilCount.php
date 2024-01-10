@@ -50,7 +50,7 @@ if(isset($_SESSION['uid'])){
                 <button id="activeTab" class="navbtn" name="cibilCount" onclick="getNewPage(this)">CIBIL count</button>
                 <button class="navbtn" name="about" onclick="getNewPage(this)">About</button>
                 <button class="navbtn" name="writeUs" onclick="getNewPage(this)">Write To Us</button>
-                <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
+                <button class="navbtn" name="./operations/logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">
                 <div id="cibilScore">

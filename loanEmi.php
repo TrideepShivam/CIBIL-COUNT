@@ -1,9 +1,26 @@
 <?php
 session_start();
 require_once('./operations/database.php');
-if(isset($_SESSION['uid'])){
+if(isset($_POST['required_loan'])){
+    $required = $_POST['required_loan'];
+    $salary = $_POST['salary'];
+    $period = $_POST['period'];
+    $method = $_POST['method'];
+    $emi = $required/($period*12/$method);
+    $cmd="insert into loandetails values(".$_SESSION['uid'].",".$required.",".$salary.",".$period.",".$method.",".$emi.");";
+    $ins=mysqli_query($conn,$cmd);
+    if ($ins) {
+        $loc = "location:".$_SERVER['PHP_SELF'];
+        header($loc);
+    }
+    else
+    {
+        echo "<div class='container'><h1>OOPS... SOMETHING WENT WRONG. TRY AGAIN.</h1>";
+    }
+}
+else if(isset($_SESSION['uid'])){
     $uname=$_SESSION['uid'];
-    $sql = "SELECT * FROM register left join approval on register.userId = approval.userId WHERE register.userId='".$uname."'";
+    $sql = "SELECT * FROM register left join loandetails on register.userId = loandetails.userId WHERE register.userId=".$uname;
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
     {
@@ -21,6 +38,7 @@ if(isset($_SESSION['uid'])){
                 background-image:url(picture/approval.png);
                 gap:20px;
             }
+            #mainContent form table tr td{font-size:30px;line-height: 50px;}
         </style>
     </head>
     <body>
@@ -35,33 +53,33 @@ if(isset($_SESSION['uid'])){
                 <button class="navbtn" name="cibilCount" onclick="getNewPage(this)">CIBIL count</button>
                 <button class="navbtn" name="about" onclick="getNewPage(this)">About</button>
                 <button class="navbtn" name="writeUs" onclick="getNewPage(this)">Write To Us</button>
-                <button class="navbtn" name="logout" onclick="getNewPage(this)">Log Out</button>
+                <button class="navbtn" name="./operations/logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">  
                 <form action=<?php echo $_SERVER['PHP_SELF']?> method="post">
                 <?php
-                    if($row['loan_amount']==!null) {
-                ?>
+                    if($row['RequiredLoan']==!null) {
+                ?> <h1>Loan Approved</h1>
                     <table>
                         <tr>
                             <td>Loan amount:</td>
-                            <td></td>
+                            <td><?php echo $row['RequiredLoan']?></td>
                         </tr>
                         <tr>
                             <td>Period(year):</td>
-                            <td></td>
+                            <td><?php echo $row['Period']?></td>
                         </tr>
                         <tr>
-                            <td>On:</td>
-                            <td></td>
+                            <td>Pay Day:</td>
+                            <td><?php echo $row['Method']?></td>
                         </tr>
                         <tr>
-                            <td>Pay Day</td>
-                            <td></td>
+                            <td>Interest Rate:</td>
+                            <td>12%</td>
                         </tr>
                         <tr>
-                            <td>Pay Amount</td>
-                            <td></td>
+                            <td>Pay Amount:</td>
+                            <td><?php echo $row['emi']?></td>
                         </tr>
                     </table>
                 <?php
@@ -74,22 +92,22 @@ if(isset($_SESSION['uid'])){
                     </div>
                     <div>
                         <label for="contact">Required loan:</label>
-                        <input type="text" class="data">
+                        <input type="text" name="loan_amount">
                     </div>
                     <div>
                         <label for="contact">Monthly Income:</label>
-                        <input type="text" class="data">
+                        <input type="text" name="salary">
                     </div>
                     <div>
                         <label for="history">Time Period:</label>
-                        <input type="number" min='1' max='20' class="data">
+                        <input type="number" min='1' max='20' name="period">
                     </div>
                     <div>
                         <label for="history">Rate: 12 %</label>
                     </div>
                     <div>
                         <label for="history">How do you want to pay:</label>
-                        <select class="data">
+                        <select name="method">
                             <option value="1">Monthly</option>
                             <option value="3">Quarterly</option>
                             <option value="6">Half Yearly</option>
@@ -97,7 +115,7 @@ if(isset($_SESSION['uid'])){
                         </select>
                     </div>
                     <div>
-					<button id="submitDashboard" onclick="approve();">SUBMIT</button>        
+					<button id="submitDashboard" type="submit">SUBMIT</button>        
                 <?php } ?>
                 </form>
             </div>
