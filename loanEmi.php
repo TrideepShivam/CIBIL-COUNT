@@ -3,7 +3,7 @@ session_start();
 require_once('./operations/database.php');
 if(isset($_SESSION['uid'])){
     $uname=$_SESSION['uid'];
-    $sql = "SELECT * FROM register WHERE userId='".$uname."'";
+    $sql = "SELECT * FROM register left join approval on register.userId = approval.userId WHERE register.userId='".$uname."'";
     $result = mysqli_query($conn, $sql);
     if ($result != false&&mysqli_num_rows($result) == 1) 
     {
@@ -20,7 +20,6 @@ if(isset($_SESSION['uid'])){
             #mainContent form{
                 background-image:url(picture/approval.png);
                 gap:20px;
-                height:400px;
             }
         </style>
     </head>
@@ -41,7 +40,7 @@ if(isset($_SESSION['uid'])){
             <div id="mainContent" class="dashboardContainer">  
                 <form action=<?php echo $_SERVER['PHP_SELF']?> method="post">
                 <?php
-                    
+                    if($row['loan_amount']==!null) {
                 ?>
                     <table>
                         <tr>
@@ -65,7 +64,9 @@ if(isset($_SESSION['uid'])){
                             <td></td>
                         </tr>
                     </table>
-                            
+                <?php
+                    }else{
+                ?>    
                     <h1>Loan Approval</h1>
                     <div>
                         <label for="NAME">MAX loan: According to Credit Score</label>
@@ -97,6 +98,7 @@ if(isset($_SESSION['uid'])){
                     </div>
                     <div>
 					<button id="submitDashboard" onclick="approve();">SUBMIT</button>        
+                <?php } ?>
                 </form>
             </div>
         </div>

@@ -61,17 +61,22 @@
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:8px;
+    gap:5px;
     background-image:url(picture/creditReport.png);
     background-size:40%;
     background-position:right center;
     background-repeat: no-repeat;
 }
+
+#mainContent h1{color:green;}
+
 #mainContent form fieldset{
     border:none;
     padding:10px;
+    display:flex;
+    flex-direction: column;
 }
-#mainContent form fieldset legend{font-size:15px;color:green;}
+#mainContent form fieldset legend{font-size:18px;color:green;}
 #mainContent form input,select{
     font-size:20px;
     padding:5px;
@@ -80,7 +85,7 @@
     background:rgba(255,255,255,.5);
 }
 #submitDashboard{
-    width:50%;
+    width:80%;
     padding:15px 40px;
     font-size:22px;
     color:white;
@@ -90,5 +95,5 @@
     border:none;
     box-shadow:0 0 10px rgba(2,0,0,.5);
     position:relative;
-    left:22%;
+    left:12%;
 }
