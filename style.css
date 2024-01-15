@@ -19,24 +19,7 @@
 }
 .msg#success{background:seagreen;}
 .msg#error{background:tomato;}
-@keyframes msg {
-    0%{
-        width:100%;
-        opacity:1;
-        font-size: 20px;
 
-    }
-    90%{
-        width:100%;
-        opacity:1;
-        font-size: 20px;
-    }
-    100%{
-        width:0%;
-        opacity:0;
-    }
-    
-}
 /*div for print msg after register*/
 .container{
     height:100%;
@@ -258,4 +241,26 @@ span{
 
 
 
+@keyframes msg {
+    0%{
+        width:100%;
+        opacity:1;
+        font-size: 20px;
 
+    }
+    90%{
+        width:100%;
+        opacity:1;
+        font-size: 20px;
+    }
+    100%{
+        width:0%;
+        opacity:0;
+    }
+    
+}
+
+@keyframes fadeIn {
+    0%{opacity:0;right:0px;}
+    100%{opacity:1;right:10px;}
+}
