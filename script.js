@@ -1,12 +1,23 @@
+export default function Ajax(method='POST',url=null){
+    const xhr = new XMLHttpRequest();
+    xhr.open(method,url);
+    xhr.onload = ()=>{
+        notify({
+            status:'',
+            content:xhr.responseText
+        });
+    }
+    xhr.send();
+}
+
 function getNewPage(t){
     let btn=t.name;
     let target=btn+".php";
     window.location.href=target;
 }
-//isOpen used for opening notification
 //status used to check success,failure
 //message will be the content of the notification
-function notify(data){
+function notify(data={}){
     let container = document.createElement('div');
     container.setAttribute('class','notificationContainer');
     container.style.cssText=`
@@ -38,3 +49,16 @@ function notify(data){
         container.remove();
     }, 5000);
 }
+
+const loginForm = document.getElementById('login');
+const registerForm = document.getElementById('register');
+loginForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let url = "./operations/login.php?";
+    let formData = new FormData(loginForm);
+    formData.forEach((value,key)=>{
+        url+=key+'='+value+'&';
+    })
+    Ajax('POST',url.substring(0,url.length-1));
+});
+
