@@ -1,33 +1,26 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-
 <?php
 session_start();
 require_once('database.php');
+$response=array();
 if($conn)
 {
-    $userid=$_POST['userId'];
-    $email=$_POST['email-Id'];
-    $pass=$_POST['password'];
+    $userid=$_REQUEST['userId'];
+    $email=$_REQUEST['email-Id'];
+    $pass=$_REQUEST['password'];
 
 }
 $cmd="insert into register values(".$userid.",'".$email."','".$pass."',true,300);";
 $ins=mysqli_query($conn,$cmd);
 if ($ins) {
-    //echo "Successfully Registered.";
-    $_SESSION['uid']=$userid;
-    $loc = "location:../dashboard.php";
-    header($loc);
+    $response['status']="success";
+    $response['type']='msg';
+    $response['msg']="Registration Successful. Kindly Login.";
 }
 else
 {
-    echo "<div class='container'><h1>OOPS... We already have this ID.</h1>";
-    echo "<a href='../index.html'>LogIn</a></div>";
+    $response['status']="fail";
+    $response['type']='msg';
+    $response['msg']="This User-ID or Email is Registered.";
 }
-
+echo json_encode($response);
 ?>
-</body>
-</html>

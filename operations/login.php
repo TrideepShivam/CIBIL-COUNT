@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once('database.php');//used to implement database file otherwise fatal error.
-$msg = "Error";
+$response= array();
 if (isset($_REQUEST['email-Id']) && isset($_REQUEST['password'])) 
 {
     $uname =$_REQUEST['email-Id'];
@@ -11,15 +11,22 @@ if (isset($_REQUEST['email-Id']) && isset($_REQUEST['password']))
     if ($result != false&&mysqli_num_rows($result) == 1) 
     {
         $_SESSION['uid']=$uname;
-        header('location:../dashboard.php');
+        $response['status']="success";
+        $response['type'] = 'url';
+        $response['url'] = './dashboard.php';
     }else{
     //    header("location:../login.html");
         $msg="Invalid Id or Password.";
-        echo $msg;
+        $response['status']="fail";
+        $response['type']='msg';
+        $response['msg']=$msg;
     }
 }else{
     // header("location:../login.html");
     $msg="Empty Data.";
-    echo $msg;
+    $response['status']="fail";
+    $response['type']='msg';
+    $response['msg']=$msg;
 }
+echo json_encode($response);
 ?>

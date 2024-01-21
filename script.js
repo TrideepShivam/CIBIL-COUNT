@@ -1,11 +1,15 @@
-export default function Ajax(method='POST',url=null){
+function Ajax(method='POST',url=null){
     const xhr = new XMLHttpRequest();
     xhr.open(method,url);
     xhr.onload = ()=>{
-        notify({
-            status:'',
-            content:xhr.responseText
-        });
+        const response = JSON.parse(xhr.responseText);
+        if(response.type=='url'){
+            window.location.href = response.url;
+        }else
+            notify({
+                status:response.status,
+                content:response.msg
+            });
     }
     xhr.send();
 }
@@ -35,7 +39,7 @@ function notify(data={}){
     `;
     let img = document.createElement('img');
     img.style.cssText = "width:50px;";
-    let imgLoc = data.status?'success.gif':'error.gif';
+    let imgLoc = data.status=="success"?'success.gif':'error.gif';
     img.src='./picture/'+imgLoc;
     img.alt="i";
     container.appendChild(img);
@@ -50,15 +54,28 @@ function notify(data={}){
     }, 5000);
 }
 
-const loginForm = document.getElementById('login');
 const registerForm = document.getElementById('register');
-loginForm.addEventListener('submit',(e)=>{
+registerForm && registerForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let url = "./operations/register.php?";
+    submitForm(url,registerForm);
+});
+
+const loginForm = document.getElementById('login');
+loginForm && loginForm.addEventListener('submit',(e)=>{
     e.preventDefault();
     let url = "./operations/login.php?";
-    let formData = new FormData(loginForm);
+    submitForm(url,loginForm);
+});
+
+function submitForm(url,form){
+    let formData = new FormData(form);
     formData.forEach((value,key)=>{
         url+=key+'='+value+'&';
-    })
+        document.getElementsByName(key)[0].value="";
+    });
     Ajax('POST',url.substring(0,url.length-1));
-});
+}
+
+
 
