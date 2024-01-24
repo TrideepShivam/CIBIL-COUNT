@@ -56,7 +56,7 @@ else if(isset($_SESSION['uid'])){
                 <button class="navbtn" name="./operations/logout" onclick="getNewPage(this)">Log Out</button>
             </div>
             <div id="mainContent" class="dashboardContainer">  
-                <form action=<?php echo $_SERVER['PHP_SELF']?> method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
                 <?php
                     if($row['RequiredLoan']==!null) {
                 ?> <h1>Loan Approved</h1>
